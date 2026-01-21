@@ -1,0 +1,25 @@
+-- Tabel User (Guru & Siswa)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(255),
+    nama_lengkap VARCHAR(100),
+    role ENUM('guru', 'siswa'),
+    kelas VARCHAR(10) NULL
+);
+
+-- Tabel Absensi
+CREATE TABLE absensi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    jadwal_id INT, -- Anggap saja jadwal mapel
+    tanggal DATE,
+    keterangan ENUM('Hadir', 'Sakit', 'Izin', 'Alpha'),
+    waktu_input TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Isi User Sesuai Role 
+INSERT INTO users (username, password, nama_lengkap, role) VALUES 
+('guru', '123', 'Pak Budi', 'guru'),
+('siswa1', '123', 'Ahmad', 'siswa');
